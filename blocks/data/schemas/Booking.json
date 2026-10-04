@@ -1,0 +1,176 @@
+{
+    "schemaName":  "Booking",
+    "collectionName":  "Bookings",
+    "schemaType":  1,
+    "fields":  [
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Human-readable unique booking code, e.g. BK-202610-12345",
+                       "name":  "BookingNumber",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Reference to Event ItemId",
+                       "name":  "EventId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "User ID of customer if authenticated",
+                       "name":  "UserId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Customer full name",
+                       "name":  "CustomerName",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Customer email address",
+                       "name":  "CustomerEmail",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  true
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Customer phone number (e.g. +8801...)",
+                       "name":  "CustomerPhone",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  true
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "Float",
+                       "description":  "Total booking cost in BDT",
+                       "name":  "TotalAmount",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "Int",
+                       "description":  "Total number of tickets in this booking",
+                       "name":  "TotalTickets",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Status: Pending, Confirmed, Cancelled, Refunded",
+                       "name":  "Status",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Payment: Unpaid, Paid, Failed",
+                       "name":  "PaymentStatus",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Payment method: bKash, Nagad, Card, Bank",
+                       "name":  "PaymentMethod",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Gateway transaction reference ID",
+                       "name":  "PaymentTransactionId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "DateTime",
+                       "description":  "Payment completion timestamp",
+                       "name":  "PaidAt",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   }
+               ]
+}

@@ -1,0 +1,150 @@
+{
+    "schemaName":  "Ticket",
+    "collectionName":  "Tickets",
+    "schemaType":  1,
+    "fields":  [
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Unique QR/Barcode payload string",
+                       "name":  "TicketCode",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Reference to Booking ItemId",
+                       "name":  "BookingId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Reference to Event ItemId",
+                       "name":  "EventId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Reference to TicketTier ItemId",
+                       "name":  "TicketTierId",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Name of attendee holding this ticket",
+                       "name":  "AttendeeName",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Email of attendee",
+                       "name":  "AttendeeEmail",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  true
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Assigned seat or entry tier",
+                       "name":  "SeatNumber",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "Float",
+                       "description":  "Individual ticket price",
+                       "name":  "Price",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Status: Issued, CheckedIn, Cancelled",
+                       "name":  "Status",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "DateTime",
+                       "description":  "Check-in scan timestamp",
+                       "name":  "CheckInTime",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Entry gate name or scanner device ID",
+                       "name":  "CheckInGate",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   }
+               ]
+}

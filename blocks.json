@@ -1,0 +1,11 @@
+{
+  "project": {
+    "tenantId": "Dac77f335ac654872b6f8b49f76e18d7b",
+    "apiUrl": "https://blocksapi.slsblx.com",
+    "appDomain": "https://dbarqf-eoexo.slsblx.com"
+  },
+  "data": {
+    "schemas": "blocks/data/schemas",
+    "rules": "blocks/data/rules.json"
+  }
+}

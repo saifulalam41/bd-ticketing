@@ -1,0 +1,85 @@
+{
+    "schemaName":  "Venue",
+    "collectionName":  "Venues",
+    "schemaType":  1,
+    "fields":  [
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Venue name, e.g. Army Stadium, ICCB",
+                       "name":  "Name",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Street address",
+                       "name":  "Address",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "City name",
+                       "name":  "City",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "Int",
+                       "description":  "Maximum seating or standing capacity",
+                       "name":  "Capacity",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Venue authority contact phone",
+                       "name":  "ContactPhone",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Google Maps location link",
+                       "name":  "GoogleMapsUrl",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   }
+               ]
+}

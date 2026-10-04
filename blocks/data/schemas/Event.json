@@ -1,0 +1,176 @@
+{
+    "schemaName":  "Event",
+    "collectionName":  "Events",
+    "schemaType":  1,
+    "fields":  [
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Event title or name",
+                       "name":  "Title",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "URL slug for the event",
+                       "name":  "Slug",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Full event description and agenda",
+                       "name":  "Description",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Category: Concert, Sports, Conference, Festival, Theater",
+                       "name":  "Category",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Organizer name or company",
+                       "name":  "Organizer",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Name of the venue",
+                       "name":  "VenueName",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Physical street address of venue",
+                       "name":  "VenueAddress",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "City, e.g. Dhaka, Chittagong, Sylhet",
+                       "name":  "City",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "DateTime",
+                       "description":  "Event start date and time",
+                       "name":  "StartDateTime",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "DateTime",
+                       "description":  "Event end date and time",
+                       "name":  "EndDateTime",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Cover image or poster URL",
+                       "name":  "BannerUrl",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "String",
+                       "description":  "Status: Draft, Published, Completed, Cancelled",
+                       "name":  "Status",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   },
+                   {
+                       "validationRule":  null,
+                       "isArray":  false,
+                       "type":  "Boolean",
+                       "description":  "Whether event is featured on the homepage",
+                       "name":  "IsFeatured",
+                       "requiredOn":  "None",
+                       "isUniqueData":  false,
+                       "fields":  [
+
+                                  ],
+                       "isPIIData":  false
+                   }
+               ]
+}
