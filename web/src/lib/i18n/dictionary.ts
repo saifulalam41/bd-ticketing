@@ -1,5 +1,8 @@
 export const defaultDictionary = {
-  "app.name": "Blocks App",
+  "app.name": "BD Ticketing",
+  "nav.events": "Events",
+  "nav.myTickets": "My Tickets",
+  "nav.organizer": "Organizer Portal",
   "nav.profile": "Profile",
   "nav.logout": "Log out",
   "auth.welcome": "Welcome back",

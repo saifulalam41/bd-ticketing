@@ -6,11 +6,9 @@ import { ErrorPage } from "../../features/auth/ErrorPage";
 import { LoginPage } from "../../features/auth/LoginPage";
 import { NotFoundPage } from "../../features/auth/NotFoundPage";
 import { ProfilePage } from "../../features/profile/ProfilePage";
-
-const protectedRoutes = {
-  "/": ProfilePage,
-  "/error": ErrorPage
-};
+import { EventsPage } from "../../features/ticketing/EventsPage";
+import { MyTicketsPage } from "../../features/ticketing/MyTicketsPage";
+import { OrganizerPage } from "../../features/ticketing/OrganizerPage";
 
 export function AppRouter() {
   const [path, setPath] = useState(() => window.location.pathname);
@@ -45,16 +43,49 @@ export function AppRouter() {
     );
   }
 
-  const Page = protectedRoutes[path as keyof typeof protectedRoutes];
-  if (!Page) {
-    return <NotFoundPage onNavigate={navigate} />;
+  // Protected route requiring authentication
+  if (path === "/profile") {
+    return (
+      <RequireAuth currentPath={path} onNavigate={navigate}>
+        <AppShell activePath={path} onNavigate={navigate}>
+          <ProfilePage />
+        </AppShell>
+      </RequireAuth>
+    );
   }
 
-  return (
-    <RequireAuth currentPath={path} onNavigate={navigate}>
+  if (path === "/error") {
+    return (
       <AppShell activePath={path} onNavigate={navigate}>
-        <Page />
+        <ErrorPage />
       </AppShell>
-    </RequireAuth>
-  );
+    );
+  }
+
+  // Public ticketing routes (with AppShell navigation)
+  if (path === "/" || path === "/events") {
+    return (
+      <AppShell activePath={path === "/events" ? "/" : path} onNavigate={navigate}>
+        <EventsPage />
+      </AppShell>
+    );
+  }
+
+  if (path === "/my-tickets") {
+    return (
+      <AppShell activePath={path} onNavigate={navigate}>
+        <MyTicketsPage />
+      </AppShell>
+    );
+  }
+
+  if (path === "/organizer") {
+    return (
+      <AppShell activePath={path} onNavigate={navigate}>
+        <OrganizerPage />
+      </AppShell>
+    );
+  }
+
+  return <NotFoundPage onNavigate={navigate} />;
 }

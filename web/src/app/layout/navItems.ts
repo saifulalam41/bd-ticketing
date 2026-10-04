@@ -1,5 +1,8 @@
-import { UserRound } from "lucide-react";
+import { Calendar, Ticket, ShieldCheck, UserRound } from "lucide-react";
 
 export const navItems = [
-  { href: "/", labelKey: "nav.profile", icon: UserRound }
+  { href: "/", labelKey: "nav.events", icon: Calendar },
+  { href: "/my-tickets", labelKey: "nav.myTickets", icon: Ticket },
+  { href: "/organizer", labelKey: "nav.organizer", icon: ShieldCheck },
+  { href: "/profile", labelKey: "nav.profile", icon: UserRound }
 ] as const;

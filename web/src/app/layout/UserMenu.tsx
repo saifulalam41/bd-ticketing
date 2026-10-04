@@ -12,7 +12,7 @@ import {
 } from "../../shared/ui/dropdown-menu";
 
 export function UserMenu({ onNavigate }: { onNavigate: (path: string) => void }) {
-  const { logout } = useAuth();
+  const { logout, status } = useAuth();
   const { t } = useT();
   const me = useCurrentUser();
   const profile = me.data?.data;
@@ -22,6 +22,18 @@ export function UserMenu({ onNavigate }: { onNavigate: (path: string) => void })
   function handleLogout() {
     logout();
     onNavigate("/login");
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <button
+        type="button"
+        onClick={() => onNavigate("/login")}
+        className="px-3.5 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:opacity-90 transition-opacity shadow-sm"
+      >
+        Sign In
+      </button>
+    );
   }
 
   return (

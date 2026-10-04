@@ -79,7 +79,7 @@
                        "fields":  [
 
                                   ],
-                       "isPIIData":  true
+                       "isPIIData":  false
                    },
                    {
                        "validationRule":  null,

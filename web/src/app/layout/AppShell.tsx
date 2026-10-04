@@ -1,4 +1,4 @@
-import { Activity, PanelLeft } from "lucide-react";
+import { Ticket, PanelLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
@@ -43,8 +43,8 @@ export function AppShell({ activePath, children, onNavigate }: { activePath: str
         <div className="sidebar-header">
           {collapsed ? null : (
             <a className="brand" href="/" onClick={(event) => { event.preventDefault(); onNavigate("/"); }}>
-              <span className="brand-mark"><Activity size={16} /></span>
-              <span>Blocks App</span>
+              <span className="brand-mark"><Ticket size={16} /></span>
+              <span>{t("app.name")}</span>
             </a>
           )}
           {/* Hidden on mobile by CSS (nothing to toggle -- the rail is always
