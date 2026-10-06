@@ -4,22 +4,24 @@ import { Search, MapPin, Calendar, Ticket as TicketIcon, Music, Trophy, Users, S
 import { fetchEvents, fetchTiers } from "./api";
 import type { Event, TicketTier } from "./api";
 import { EventBookingModal } from "./EventBookingModal";
-
-const CATEGORIES = [
-  { id: "all", label: "All Events", icon: Sparkles },
-  { id: "Concert", label: "Concerts", icon: Music },
-  { id: "Sports", label: "Sports", icon: Trophy },
-  { id: "Conference", label: "Conferences", icon: Users },
-  { id: "Festival", label: "Festivals", icon: Sparkles }
-];
-
-const CITIES = ["All Cities", "Dhaka", "Chittagong", "Sylhet"];
+import { useT } from "../../lib/i18n/LocalizationProvider";
 
 export function EventsPage() {
+  const { t } = useT();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedCity, setSelectedCity] = useState<string>("All Cities");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [bookingEvent, setBookingEvent] = useState<Event | null>(null);
+
+  const CATEGORIES = [
+    { id: "all", label: t("events.allEvents"), icon: Sparkles },
+    { id: "Concert", label: t("events.concerts"), icon: Music },
+    { id: "Sports", label: t("events.sports"), icon: Trophy },
+    { id: "Conference", label: t("events.conferences"), icon: Users },
+    { id: "Festival", label: t("events.festivals"), icon: Sparkles }
+  ];
+
+  const CITIES = [t("events.allCities"), "Dhaka", "Chittagong", "Sylhet"];
 
   const eventsQuery = useQuery({
     queryKey: ["events"],
@@ -70,15 +72,15 @@ export function EventsPage() {
         <div className="relative z-10 max-w-2xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-wider text-purple-200">
             <Sparkles size={14} className="text-yellow-400" />
-            <span>Official Ticketing Platform • Bangladesh</span>
+            <span>{t("events.badge")}</span>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-            Book Tickets for the Biggest Events in Bangladesh
+            {t("events.heroTitle")}
           </h1>
 
           <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-            From premier rock concerts and BPL cricket showdowns to tech summits. Verified digital tickets, instant bKash/Nagad checkout, and seamless entry.
+            {t("events.heroSubtitle")}
           </p>
 
           {/* Search Bar */}
@@ -89,7 +91,7 @@ export function EventsPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by event, artist, or venue..."
+                placeholder={t("events.searchPlaceholder")}
                 className="w-full bg-transparent px-3 py-2 text-white placeholder-slate-400 text-sm focus:outline-none"
               />
               {searchQuery && (
@@ -98,7 +100,7 @@ export function EventsPage() {
                   onClick={() => setSearchQuery("")}
                   className="px-2 text-xs text-slate-400 hover:text-white"
                 >
-                  Clear
+                  {t("events.clear")}
                 </button>
               )}
             </div>
@@ -165,20 +167,20 @@ export function EventsPage() {
           <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto">
             <TicketIcon size={28} />
           </div>
-          <h3 className="text-lg font-bold text-[hsl(var(--foreground))]">No events found</h3>
+          <h3 className="text-lg font-bold text-[hsl(var(--foreground))]">{t("events.noEventsTitle")}</h3>
           <p className="text-sm text-[hsl(var(--muted-foreground))] max-w-md mx-auto">
-            We couldn't find any events matching your selected filters. Try searching for a different keyword or selecting "All Events".
+            {t("events.noEventsSubtitle")}
           </p>
           <button
             type="button"
             onClick={() => {
               setSelectedCategory("all");
-              setSelectedCity("All Cities");
+              setSelectedCity(t("events.allCities"));
               setSearchQuery("");
             }}
             className="px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-xl"
           >
-            Reset Filters
+            {t("events.resetFilters")}
           </button>
         </div>
       ) : (
@@ -237,10 +239,10 @@ export function EventsPage() {
                   <div className="pt-3 border-t border-[hsl(var(--border))] flex items-center justify-between">
                     <div>
                       <span className="text-[10px] text-[hsl(var(--muted-foreground))] block uppercase tracking-wider">
-                        Starting from
+                        {t("events.startingFrom")}
                       </span>
                       <span className="text-base font-extrabold text-[hsl(var(--foreground))]">
-                        {startPrice !== null ? `৳${startPrice.toLocaleString()} BDT` : "Free"}
+                        {startPrice !== null ? `৳${startPrice.toLocaleString()} BDT` : t("events.free")}
                       </span>
                     </div>
 
@@ -249,7 +251,7 @@ export function EventsPage() {
                       onClick={() => setBookingEvent(ev)}
                       className="px-4 py-2 rounded-xl bg-primary text-primary-foreground font-semibold text-xs hover:opacity-90 transition-opacity flex items-center gap-1 shadow-md shadow-primary/20"
                     >
-                      <span>Get Tickets</span>
+                      <span>{t("events.getTickets")}</span>
                       <ChevronRight size={14} />
                     </button>
                   </div>

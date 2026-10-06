@@ -2,7 +2,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { blocksClient } from "../blocks/client";
-import { defaultDictionary } from "./dictionary";
+import { defaultDictionary, bengaliFallbackDictionary } from "./dictionary";
 import type { TranslationKey } from "./dictionary";
 
 type Dictionary = Record<string, string>;
@@ -75,7 +75,13 @@ export function LocalizationProvider({ children }: { children: ReactNode }) {
     language,
     languages,
     setLanguage,
-    t: (key, fallback) => cloudDictionary[key] ?? defaultDictionary[key] ?? fallback ?? key
+    t: (key, fallback) => {
+      if (cloudDictionary[key]) return cloudDictionary[key];
+      if (language.startsWith("bn") && bengaliFallbackDictionary[key]) {
+        return bengaliFallbackDictionary[key];
+      }
+      return defaultDictionary[key] ?? fallback ?? key;
+    }
   }), [cloudDictionary, language, languages]);
 
   return <LocalizationContext.Provider value={value}>{children}</LocalizationContext.Provider>;

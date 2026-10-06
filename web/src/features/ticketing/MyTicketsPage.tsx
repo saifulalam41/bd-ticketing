@@ -3,8 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Ticket as TicketIcon, Search, Calendar, MapPin, CheckCircle, AlertCircle, Printer, Download, Sparkles } from "lucide-react";
 import { fetchTickets, fetchBookings, fetchEvents } from "./api";
 import type { Ticket, Booking, Event } from "./api";
+import { useT } from "../../lib/i18n/LocalizationProvider";
 
 export function MyTicketsPage() {
+  const { t } = useT();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const ticketsQuery = useQuery({ queryKey: ["tickets"], queryFn: fetchTickets });
@@ -25,15 +27,15 @@ export function MyTicketsPage() {
     if (e.ItemId) eventsMap.set(e.ItemId, e);
   });
 
-  const filteredTickets = tickets.filter((t) => {
+  const filteredTickets = tickets.filter((ticket) => {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase().trim();
-    const booking = bookingsMap.get(t.BookingId);
+    const booking = bookingsMap.get(ticket.BookingId);
 
     return (
-      t.TicketCode.toLowerCase().includes(q) ||
-      t.AttendeeName.toLowerCase().includes(q) ||
-      (t.AttendeeEmail && t.AttendeeEmail.toLowerCase().includes(q)) ||
+      ticket.TicketCode.toLowerCase().includes(q) ||
+      ticket.AttendeeName.toLowerCase().includes(q) ||
+      (ticket.AttendeeEmail && ticket.AttendeeEmail.toLowerCase().includes(q)) ||
       (booking && booking.BookingNumber.toLowerCase().includes(q)) ||
       (booking && booking.CustomerPhone.includes(q))
     );
@@ -44,10 +46,10 @@ export function MyTicketsPage() {
       {/* Header */}
       <div className="space-y-2 text-center sm:text-left">
         <h1 className="text-3xl font-extrabold text-[hsl(var(--foreground))] tracking-tight">
-          My Tickets & Passes
+          {t("myTickets.title")}
         </h1>
         <p className="text-sm text-[hsl(var(--muted-foreground))]">
-          Access your digital admission passes, barcodes, and check-in status.
+          {t("myTickets.subtitle")}
         </p>
       </div>
 
@@ -59,7 +61,7 @@ export function MyTicketsPage() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by ticket code (e.g. TKT-DHA-...), phone number, or booking ref..."
+            placeholder={t("myTickets.searchPlaceholder")}
             className="w-full pl-10 pr-4 py-2.5 bg-[hsl(var(--background))] border border-[hsl(var(--border))] rounded-xl text-sm text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-primary/40"
           />
           {searchQuery && (
@@ -67,7 +69,7 @@ export function MyTicketsPage() {
               onClick={() => setSearchQuery("")}
               className="absolute right-3 text-xs text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
             >
-              Clear
+              {t("events.clear")}
             </button>
           )}
         </div>
@@ -85,20 +87,20 @@ export function MyTicketsPage() {
           <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto">
             <TicketIcon size={28} />
           </div>
-          <h3 className="text-lg font-bold text-[hsl(var(--foreground))]">No tickets found</h3>
+          <h3 className="text-lg font-bold text-[hsl(var(--foreground))]">{t("myTickets.noTicketsTitle")}</h3>
           <p className="text-sm text-[hsl(var(--muted-foreground))] max-w-sm mx-auto">
             {searchQuery
               ? `No tickets match "${searchQuery}". Please check your code or phone number.`
-              : "You haven't booked any tickets yet. Browse upcoming events to get started!"}
+              : t("myTickets.noTicketsSubtitle")}
           </p>
         </div>
       ) : (
         <div className="space-y-6">
-          {filteredTickets.map((t) => {
-            const booking = bookingsMap.get(t.BookingId);
-            const event = eventsMap.get(t.EventId);
-            const isCheckedIn = t.Status === "CheckedIn";
-            const isCancelled = t.Status === "Cancelled";
+          {filteredTickets.map((ticket) => {
+            const booking = bookingsMap.get(ticket.BookingId);
+            const event = eventsMap.get(ticket.EventId);
+            const isCheckedIn = ticket.Status === "CheckedIn";
+            const isCancelled = ticket.Status === "Cancelled";
 
             const eventStart = event?.StartDateTime ? new Date(event.StartDateTime) : null;
             const dateStr = eventStart
@@ -110,7 +112,7 @@ export function MyTicketsPage() {
 
             return (
               <div
-                key={t.ItemId || t.TicketCode}
+                key={ticket.ItemId || ticket.TicketCode}
                 className="relative bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden shadow-md flex flex-col md:flex-row transition-all hover:border-primary/40"
               >
                 {/* Main Pass Info */}
@@ -135,7 +137,7 @@ export function MyTicketsPage() {
                       }`}
                     >
                       {isCheckedIn ? <CheckCircle size={12} /> : <Sparkles size={12} />}
-                      <span>{isCheckedIn ? "Checked In" : isCancelled ? "Cancelled" : "Valid Entry"}</span>
+                      <span>{isCheckedIn ? t("myTickets.checkedIn") : isCancelled ? t("myTickets.cancelled") : t("myTickets.validEntry")}</span>
                     </span>
                   </div>
 
@@ -152,18 +154,18 @@ export function MyTicketsPage() {
 
                   <div className="pt-3 border-t border-[hsl(var(--border))] flex flex-wrap items-center justify-between gap-4 text-xs">
                     <div>
-                      <span className="text-[hsl(var(--muted-foreground))] block">Attendee</span>
-                      <span className="font-semibold text-sm text-[hsl(var(--foreground))]">{t.AttendeeName}</span>
+                      <span className="text-[hsl(var(--muted-foreground))] block">{t("myTickets.attendee")}</span>
+                      <span className="font-semibold text-sm text-[hsl(var(--foreground))]">{ticket.AttendeeName}</span>
                     </div>
 
                     <div>
-                      <span className="text-[hsl(var(--muted-foreground))] block">Category / Tier</span>
-                      <span className="font-semibold text-sm text-primary">{t.SeatNumber || "Standard"}</span>
+                      <span className="text-[hsl(var(--muted-foreground))] block">{t("myTickets.categoryTier")}</span>
+                      <span className="font-semibold text-sm text-primary">{ticket.SeatNumber || "Standard"}</span>
                     </div>
 
                     {booking && (
                       <div>
-                        <span className="text-[hsl(var(--muted-foreground))] block">Booking Ref</span>
+                        <span className="text-[hsl(var(--muted-foreground))] block">{t("myTickets.bookingRef")}</span>
                         <span className="font-mono font-medium text-[hsl(var(--foreground))]">{booking.BookingNumber}</span>
                       </div>
                     )}
@@ -176,7 +178,7 @@ export function MyTicketsPage() {
                         title="Print / Save Pass"
                       >
                         <Printer size={14} />
-                        <span className="text-xs font-medium">Print</span>
+                        <span className="text-xs font-medium">{t("myTickets.print")}</span>
                       </button>
                     </div>
                   </div>
@@ -195,16 +197,16 @@ export function MyTicketsPage() {
 
                   <div>
                     <span className="block text-[10px] uppercase font-bold tracking-widest text-[hsl(var(--muted-foreground))]">
-                      Ticket Pass Code
+                      {t("myTickets.passCode")}
                     </span>
                     <span className="font-mono text-xs font-black tracking-wider text-[hsl(var(--foreground))]">
-                      {t.TicketCode}
+                      {ticket.TicketCode}
                     </span>
                   </div>
 
-                  {t.CheckInTime && (
+                  {ticket.CheckInTime && (
                     <span className="text-[10px] text-blue-500 font-medium block">
-                      Gate: {t.CheckInGate || "Main"} • {new Date(t.CheckInTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                      {t("myTickets.gate")}: {ticket.CheckInGate || "Main"} • {new Date(ticket.CheckInTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </span>
                   )}
                 </div>

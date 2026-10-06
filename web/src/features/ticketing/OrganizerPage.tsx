@@ -3,8 +3,10 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { PlusCircle, QrCode, ClipboardList, CheckCircle2, AlertCircle, Loader2, DollarSign, Users, Ticket as TicketIcon } from "lucide-react";
 import { fetchEvents, fetchBookings, fetchTickets, fetchVenues, createNewEvent, verifyAndCheckInTicket } from "./api";
 import type { Event, TicketTier } from "./api";
+import { useT } from "../../lib/i18n/LocalizationProvider";
 
 export function OrganizerPage() {
+  const { t } = useT();
   const [activeTab, setActiveTab] = useState<"scanner" | "create" | "bookings">("scanner");
 
   // Scanner state
@@ -143,10 +145,10 @@ export function OrganizerPage() {
       {/* Title */}
       <div className="space-y-2">
         <h1 className="text-3xl font-extrabold text-[hsl(var(--foreground))] tracking-tight">
-          Organizer & Gate Portal
+          {t("organizer.title")}
         </h1>
         <p className="text-sm text-[hsl(var(--muted-foreground))]">
-          Manage event ticketing, scan attendee passes, and inspect real-time sales.
+          {t("organizer.subtitle")}
         </p>
       </div>
 
@@ -157,7 +159,7 @@ export function OrganizerPage() {
             <DollarSign size={24} />
           </div>
           <div>
-            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">Total Revenue</span>
+            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">{t("organizer.totalRevenue")}</span>
             <p className="text-2xl font-black text-[hsl(var(--foreground))]">৳{totalRevenue.toLocaleString()}</p>
           </div>
         </div>
@@ -167,7 +169,7 @@ export function OrganizerPage() {
             <TicketIcon size={24} />
           </div>
           <div>
-            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">Tickets Sold</span>
+            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">{t("organizer.ticketsSold")}</span>
             <p className="text-2xl font-black text-[hsl(var(--foreground))]">{totalTicketsSold}</p>
           </div>
         </div>
@@ -177,7 +179,7 @@ export function OrganizerPage() {
             <Users size={24} />
           </div>
           <div>
-            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">Checked-In Guests</span>
+            <span className="text-xs text-[hsl(var(--muted-foreground))] uppercase font-semibold">{t("organizer.checkedInGuests")}</span>
             <p className="text-2xl font-black text-[hsl(var(--foreground))]">{checkedInCount}</p>
           </div>
         </div>
@@ -195,7 +197,7 @@ export function OrganizerPage() {
           }`}
         >
           <QrCode size={18} />
-          <span>Gate Scanner</span>
+          <span>{t("organizer.gateScanner")}</span>
         </button>
 
         <button
@@ -208,7 +210,7 @@ export function OrganizerPage() {
           }`}
         >
           <PlusCircle size={18} />
-          <span>Create New Event</span>
+          <span>{t("organizer.createEvent")}</span>
         </button>
 
         <button
@@ -221,7 +223,7 @@ export function OrganizerPage() {
           }`}
         >
           <ClipboardList size={18} />
-          <span>Bookings & Orders ({bookings.length})</span>
+          <span>{t("organizer.bookingsOrders")} ({bookings.length})</span>
         </button>
       </div>
 
@@ -232,16 +234,16 @@ export function OrganizerPage() {
             <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-2">
               <QrCode size={24} />
             </div>
-            <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">Fast Check-In Scanner</h2>
+            <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">{t("organizer.scannerTitle")}</h2>
             <p className="text-xs text-[hsl(var(--muted-foreground))]">
-              Scan barcode or enter the Ticket Pass Code to verify attendee entry.
+              {t("organizer.scannerSubtitle")}
             </p>
           </div>
 
           <form onSubmit={handleCheckIn} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">
-                Entrance Gate
+                {t("organizer.entranceGate")}
               </label>
               <select
                 value={gate}
@@ -257,14 +259,14 @@ export function OrganizerPage() {
 
             <div>
               <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">
-                Ticket Code
+                {t("organizer.ticketCode")}
               </label>
               <input
                 type="text"
                 required
                 value={scanCode}
                 onChange={(e) => setScanCode(e.target.value.toUpperCase())}
-                placeholder="e.g. TKT-DHA-7X9K2"
+                placeholder={t("organizer.ticketCodePlaceholder")}
                 className="w-full px-4 py-3 bg-[hsl(var(--background))] border-2 border-primary/40 focus:border-primary rounded-xl text-lg font-mono tracking-widest text-center uppercase focus:outline-none"
               />
             </div>
@@ -277,10 +279,10 @@ export function OrganizerPage() {
               {checkingIn ? (
                 <>
                   <Loader2 size={16} className="animate-spin" />
-                  <span>Verifying...</span>
+                  <span>{t("organizer.verifying")}</span>
                 </>
               ) : (
-                <span>Validate & Check In</span>
+                <span>{t("organizer.validateCheckIn")}</span>
               )}
             </button>
           </form>
@@ -303,7 +305,7 @@ export function OrganizerPage() {
       {/* Tab 2: Create Event */}
       {activeTab === "create" && (
         <form onSubmit={handleCreateEvent} className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl p-6 sm:p-8 space-y-6">
-          <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">Publish New Event</h2>
+          <h2 className="text-xl font-bold text-[hsl(var(--foreground))]">{t("organizer.publishEvent")}</h2>
 
           {createSuccess && (
             <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 rounded-xl text-sm flex items-center gap-2">
@@ -321,7 +323,7 @@ export function OrganizerPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Event Title *</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.eventTitle")} *</label>
               <input
                 type="text"
                 required
@@ -333,22 +335,22 @@ export function OrganizerPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Category *</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.category")} *</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-3 py-2.5 bg-[hsl(var(--background))] border border-[hsl(var(--border))] rounded-xl text-sm"
               >
-                <option value="Concert">Concert</option>
-                <option value="Sports">Sports</option>
-                <option value="Conference">Conference</option>
-                <option value="Festival">Festival</option>
+                <option value="Concert">{t("events.concerts")}</option>
+                <option value="Sports">{t("events.sports")}</option>
+                <option value="Conference">{t("events.conferences")}</option>
+                <option value="Festival">{t("events.festivals")}</option>
                 <option value="Theater">Theater</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">City *</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.city")} *</label>
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
@@ -362,7 +364,7 @@ export function OrganizerPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Venue Name *</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.venueName")} *</label>
               <input
                 type="text"
                 required
@@ -374,7 +376,7 @@ export function OrganizerPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Organizer Name</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.organizerName")}</label>
               <input
                 type="text"
                 value={organizer}
@@ -385,7 +387,7 @@ export function OrganizerPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Start Date & Time *</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.startDateTime")} *</label>
               <input
                 type="datetime-local"
                 required
@@ -396,7 +398,7 @@ export function OrganizerPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">End Date & Time</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.endDateTime")}</label>
               <input
                 type="datetime-local"
                 value={endDateTime}
@@ -406,7 +408,7 @@ export function OrganizerPage() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Banner Image URL</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.bannerUrl")}</label>
               <input
                 type="url"
                 value={bannerUrl}
@@ -417,7 +419,7 @@ export function OrganizerPage() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">Description</label>
+              <label className="block text-xs font-semibold text-[hsl(var(--muted-foreground))] mb-1">{t("organizer.description")}</label>
               <textarea
                 rows={3}
                 value={description}
@@ -431,14 +433,14 @@ export function OrganizerPage() {
           {/* Ticket Tiers */}
           <div className="space-y-3 pt-4 border-t border-[hsl(var(--border))]">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-[hsl(var(--foreground))]">Ticket Categories / Tiers</h3>
+              <h3 className="text-sm font-bold text-[hsl(var(--foreground))]">{t("organizer.ticketTiers")}</h3>
               <button
                 type="button"
                 onClick={addTierRow}
                 className="text-xs text-primary font-semibold hover:underline flex items-center gap-1"
               >
                 <PlusCircle size={14} />
-                <span>Add Tier</span>
+                <span>{t("organizer.addTier")}</span>
               </button>
             </div>
 
@@ -446,7 +448,7 @@ export function OrganizerPage() {
               {tiers.map((tier, idx) => (
                 <div key={idx} className="p-3 bg-[hsl(var(--background))] border border-[hsl(var(--border))] rounded-xl grid grid-cols-1 sm:grid-cols-4 gap-2 items-center">
                   <div>
-                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">Tier Name</label>
+                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">{t("organizer.tierName")}</label>
                     <input
                       type="text"
                       required
@@ -464,7 +466,7 @@ export function OrganizerPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">Price (BDT)</label>
+                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">{t("organizer.price")}</label>
                     <input
                       type="number"
                       required
@@ -482,7 +484,7 @@ export function OrganizerPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">Total Capacity</label>
+                    <label className="block text-[10px] text-[hsl(var(--muted-foreground))]">{t("organizer.capacity")}</label>
                     <input
                       type="number"
                       required
@@ -506,7 +508,7 @@ export function OrganizerPage() {
                         onClick={() => removeTierRow(idx)}
                         className="text-xs text-red-500 hover:underline"
                       >
-                        Remove
+                        {t("organizer.remove")}
                       </button>
                     )}
                   </div>
@@ -521,7 +523,7 @@ export function OrganizerPage() {
             className="w-full py-3 bg-primary text-primary-foreground font-bold rounded-xl text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg shadow-primary/20 disabled:opacity-50"
           >
             {creating ? <Loader2 size={16} className="animate-spin" /> : null}
-            <span>Publish Event to Blocks Data Gateway</span>
+            <span>{t("organizer.publishButton")}</span>
           </button>
         </form>
       )}
@@ -533,20 +535,20 @@ export function OrganizerPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-[hsl(var(--muted))] border-b border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] font-semibold uppercase tracking-wider">
                 <tr>
-                  <th className="px-4 py-3">Booking Ref</th>
-                  <th className="px-4 py-3">Customer</th>
-                  <th className="px-4 py-3">Contact</th>
-                  <th className="px-4 py-3">Tickets</th>
-                  <th className="px-4 py-3">Amount</th>
-                  <th className="px-4 py-3">Method</th>
-                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">{t("organizer.tableRef")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableCustomer")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableContact")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableTickets")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableAmount")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableMethod")}</th>
+                  <th className="px-4 py-3">{t("organizer.tableStatus")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[hsl(var(--border))]">
                 {bookings.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="px-4 py-8 text-center text-[hsl(var(--muted-foreground))]">
-                      No bookings recorded yet.
+                      {t("organizer.noBookings")}
                     </td>
                   </tr>
                 ) : (
